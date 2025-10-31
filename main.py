@@ -1,5 +1,7 @@
 import pygame
+from asteroidfield import AsteroidField
 from player import Player
+from asteroid import Asteroid
 from constants import *
 
 def main():
@@ -19,11 +21,14 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
     triangle = Player(x, y, PLAYER_RADIUS)
-
+    asteroid_field = AsteroidField()
 
     #game loop
     while True:
