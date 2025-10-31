@@ -1,5 +1,5 @@
 import pygame
-import player
+from player import Player
 from constants import *
 
 def main():
@@ -17,7 +17,13 @@ def main():
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
 
-    triangle = player.Player(x, y, PLAYER_RADIUS)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
+    triangle = Player(x, y, PLAYER_RADIUS)
+
 
     #game loop
     while True:
@@ -28,8 +34,10 @@ def main():
         screen.fill(color='black')
         dt = the_clock.tick(fps) / 1000
 
-        triangle.draw(screen)
-        triangle.update(dt)
+
+        updatable.update(dt) 
+        for item in drawable:
+            item.draw(screen)
 
         pygame.display.flip()
 
