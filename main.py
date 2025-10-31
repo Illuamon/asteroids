@@ -8,12 +8,12 @@ from constants import *
 
 def main():
     pygame.init()
+    pygame.font.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     fps = 60
+    score = 0
 
     print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
 
     the_clock = pygame.time.Clock()
     dt = 0
@@ -43,6 +43,9 @@ def main():
         screen.fill(color='black')
         dt = the_clock.tick(fps) / 1000
 
+        font = pygame.font.Font(None, 30)
+        score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+        screen.blit(score_text, (10, 10))
 
         updatable.update(dt) 
         for item in drawable:
@@ -51,6 +54,7 @@ def main():
         for item in asteroids:
             if item.check_collisions(triangle):
                 print("Game over!")
+                print(f"Score was: {score}")
                 sys.exit()
         
         for item in asteroids:
@@ -58,6 +62,7 @@ def main():
                 if item.check_collisions(bullet):
                     item.split()
                     bullet.kill()
+                    score += 1
 
         pygame.display.flip()
 
