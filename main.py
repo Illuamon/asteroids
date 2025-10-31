@@ -29,6 +29,7 @@ def main():
         dt = the_clock.tick(fps) / 1000
 
         triangle.draw(screen)
+        triangle.update(dt)
 
         pygame.display.flip()
 
