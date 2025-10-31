@@ -52,6 +52,12 @@ def main():
             if item.check_collisions(triangle):
                 print("Game over!")
                 sys.exit()
+        
+        for item in asteroids:
+            for bullet in shots:
+                if item.check_collisions(bullet):
+                    item.split()
+                    bullet.kill()
 
         pygame.display.flip()
 
